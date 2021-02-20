@@ -36,6 +36,12 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    // proxy: {
+    //   "/gc-api": {
+    //     target: "",
+    //
+    //   }
+    // },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {
