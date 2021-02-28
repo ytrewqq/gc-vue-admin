@@ -4,9 +4,9 @@ import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
-    token: getToken(),
-    name: '',
-    avatar: ''
+    userToken: getToken(),
+    userId: '',
+    userName: ''
   }
 }
 
@@ -16,26 +16,27 @@ const mutations = {
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
   },
-  SET_TOKEN: (state, token) => {
-    state.token = token
+  SET_TOKEN: (state, userToken) => {
+    state.userToken = userToken
   },
   SET_NAME: (state, name) => {
-    state.name = name
+    state.userName = name
   },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
+  SET_ID: (state, userId) => {
+    state.userId = userId
   }
 }
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    // const { userName, password } = userInfo
+    console.log('userInfo: ', userInfo)
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login(userInfo).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        commit('SET_TOKEN', data.userToken)
+        setToken(data.userToken)
         resolve()
       }).catch(error => {
         reject(error)
@@ -46,17 +47,17 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo(state.userToken).then(response => {
         const { data } = response
 
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { userName, userId } = data
 
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_NAME', userName)
+        commit('SET_ID', userId)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -67,7 +68,7 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
+      logout(state.userToken).then(() => {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')

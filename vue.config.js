@@ -37,9 +37,12 @@ module.exports = {
       errors: true
     },
     // proxy: {
-    //   "/gc-api": {
-    //     target: "",
-    //
+    //   '/gc-api': {
+    //     target: 'http://localhost:8089',
+    //     changeOrigin: true,
+    //     pahtRewrite: {
+    //       '^/gc-api': ''
+    //     }
     //   }
     // },
     before: require('./mock/mock-server.js')
