@@ -1,12 +1,12 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, getName, setName } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
     userToken: getToken(),
     userId: '',
-    userName: ''
+    userName: getName()
   }
 }
 
@@ -30,13 +30,14 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    // const { userName, password } = userInfo
-    console.log('userInfo: ', userInfo)
     return new Promise((resolve, reject) => {
       login(userInfo).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.userToken)
+        commit('SET_NAME', data.userName)
+        commit('SET_ID', data.userId)
         setToken(data.userToken)
+        setName()
         resolve()
       }).catch(error => {
         reject(error)
@@ -47,15 +48,15 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.userToken).then(response => {
+      // eslint-disable-next-line no-unused-vars
+      const tokenParam = { userToken: state.userToken}
+      getInfo(tokenParam).then(response => {
         const { data } = response
 
         if (!data) {
-          return reject('Verification failed, please Login again.')
+          return reject('验证失败，请重新登录！')
         }
-
         const { userName, userId } = data
-
         commit('SET_NAME', userName)
         commit('SET_ID', userId)
         resolve(data)
