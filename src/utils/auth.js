@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 const TokenKey = 'user_token'
 const userName = 'user_name'
+const userId = 'user_Id'
 
 export function getToken() {
   return Cookies.get(TokenKey)
@@ -21,4 +22,11 @@ export function getName() {
 
 export function setName(name) {
   Cookies.set(userName,name)
+}
+export function getUserId() {
+  return Cookies.get(userId)
+}
+
+export function setUserId(id) {
+  Cookies.set(userId, id)
 }

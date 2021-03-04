@@ -1,11 +1,12 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, getName, setName } from '@/utils/auth'
+import { getToken, setToken, removeToken, getName, setName, getUserId, setUserId } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import da from "element-ui/src/locale/lang/da";
 
 const getDefaultState = () => {
   return {
     userToken: getToken(),
-    userId: '',
+    userId: getUserId(),
     userName: getName()
   }
 }
@@ -37,7 +38,8 @@ const actions = {
         commit('SET_NAME', data.userName)
         commit('SET_ID', data.userId)
         setToken(data.userToken)
-        setName()
+        setName(data.userName)
+        setUserId(data.userId)
         resolve()
       }).catch(error => {
         reject(error)
@@ -49,7 +51,7 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       // eslint-disable-next-line no-unused-vars
-      const tokenParam = { userToken: state.userToken}
+      const tokenParam = { userToken: state.userToken }
       getInfo(tokenParam).then(response => {
         const { data } = response
 
@@ -69,7 +71,7 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.userToken).then(() => {
+      logout().then(() => {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')

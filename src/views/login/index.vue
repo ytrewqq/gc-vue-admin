@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">垃圾分类系统登录</h3>
       </div>
 
       <el-form-item prop="phone">
@@ -41,12 +41,12 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">LOGIN</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
-      <!--      <div class="tips">-->
-      <!--        <span style="margin-right:20px;">username: admin</span>-->
-      <!--        <span> password: any</span>-->
-      <!--      </div>-->
+            <div class="tips">
+<!--              <span style="margin-right:20px;">username: admin</span>-->
+              <span ><el-link :underline="false" type="success">没有账号？</el-link><el-link type="success">立即注册</el-link></span>
+            </div>
 
     </el-form>
   </div>
