@@ -8,7 +8,7 @@
 
       <el-form-item prop="phone">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="phone" />
         </span>
         <el-input
           ref="phone"
@@ -44,8 +44,7 @@
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
             <div class="tips">
-<!--              <span style="margin-right:20px;">username: admin</span>-->
-              <span ><el-link :underline="false" type="success">没有账号？</el-link><el-link type="success">立即注册</el-link></span>
+              <span ><el-link type="success" @click="handleRegister">没有账号？立即注册</el-link></span>
             </div>
 
     </el-form>
@@ -53,7 +52,6 @@
 </template>
 
 <script>
-// import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
@@ -118,18 +116,23 @@ export default {
           })
         } else {
           this.loading = false
-          console.log('error submit!!')
+          this.$message({
+              message: '请填写登录名和密码',
+              type: "error"
+          })
           return false
         }
       })
+    },
+    handleRegister(){
+        console.log(this.redirect)
+        this.$router.push('/register')
     }
   }
 }
 </script>
 
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
 $light_gray:#fff;
