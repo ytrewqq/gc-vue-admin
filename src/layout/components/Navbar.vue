@@ -12,10 +12,14 @@
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item>
-              回到首页
-            </el-dropdown-item>
+            <el-dropdown-item>回到首页</el-dropdown-item>
           </router-link>
+          <el-dropdown-item divided @click.native="personal">
+            <span style="display:block;">个人中心</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided @click.native="changePassword">
+            <span style="display:block;">修改密码</span>
+          </el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出登录</span>
           </el-dropdown-item>
@@ -39,10 +43,7 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar'
-    ]),
-    println(){
-
-    }
+    ])
   },
   methods: {
     toggleSideBar() {
@@ -51,6 +52,12 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    async personal() {
+        this.$router.push(`/personal`)
+    },
+    async changePassword() {
+        this.$router.push(`/password`)
     }
   }
 }

@@ -124,8 +124,8 @@
                                 this.$router.push('/login')
                             } else {
                                 this.$message({
-                                    error: response.msg,
-                                    center: true
+                                    message: response.msg,
+                                    type: "success"
                                 });
                             }
                         })

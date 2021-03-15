@@ -29,3 +29,19 @@ export function register(data) {
     data: data
   })
 }
+
+export function update(data) {
+  return request({
+    url: '/user/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function changePassword(data) {
+  return request({
+    url: '/user/password',
+    method: 'post',
+    data: data
+  })
+}
