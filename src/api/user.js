@@ -32,7 +32,7 @@ export function register(data) {
 
 export function update(data) {
   return request({
-    url: '/user/update',
+    url: '/user/personal',
     method: 'post',
     data: data
   })
@@ -44,4 +44,12 @@ export function changePassword(data) {
     method: 'post',
     data: data
   })
+}
+
+export function personalDetail() {
+  return request({
+    url: '/user/personal-detail',
+    method: 'get'
+  })
+
 }

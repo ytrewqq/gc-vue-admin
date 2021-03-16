@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import {update} from "../../api/user";
+    import {update,personalDetail} from "../../api/user";
 
     export default {
         name: "personal",
@@ -64,6 +64,7 @@
             };
             return {
                 personalForm: {
+                    userId: '',
                     userName: '',
                     idNo: '',
                     phone: '',
@@ -85,6 +86,11 @@
                 }
             };
         },
+        mounted(){
+          personalDetail().then(response => {
+              this.personalForm = response.data;
+          })
+        },
         methods: {
             submitpersonal(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -96,6 +102,7 @@
                                     message: response.msg,
                                     type: "success"
                                 });
+                                this.$router.push(`/`)
                             } else {
                                 this.$message({
                                     message: response.msg,
@@ -114,8 +121,7 @@
                 });
             },
             cancelpersonal(formName) {
-                this.$refs[formName].resetFields();
-            },
+                this.$router.push(`/`)            },
             editpersonal(){
 
             }
