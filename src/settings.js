@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'gc-vue-admin',
+  title: '垃圾分类管理',
 
   /**
    * @type {boolean} true | false

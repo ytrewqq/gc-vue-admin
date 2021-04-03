@@ -69,10 +69,24 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '垃圾分类主页', icon: 'dashboard' }
     }]
   },
-
+  {
+    path: '/classification',
+    component: Layout,
+    redirect: '/classification/garbage-classfy',
+    name: 'classification',
+    meta: { title: '分类管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: '/garbage-classfy',
+        name: 'garbage-classfy',
+        component: () => import('@/views/classification/index'),
+        meta: { title: '垃圾分类', icon: 'example' }
+      }
+    ]
+  },
   {
     path: '/example',
     component: Layout,
