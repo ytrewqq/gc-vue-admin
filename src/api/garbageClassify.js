@@ -30,3 +30,34 @@ export function delCalssification(data) {
     data: data
   })
 }
+
+export function getGarbages(data) {
+  return request({
+    url: '/garbage/querylist',
+    method: 'post',
+    data: data
+  })
+}
+export function addGarbage(data) {
+  return request({
+    url: '/garbage/save',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateGarbage(data) {
+  return request({
+    url: '/garbage/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function delGarbage(data) {
+  return request({
+    url: '/garbage/remove',
+    method: 'post',
+    data: data
+  })
+}
