@@ -62,7 +62,7 @@
         </el-table-column>
         <el-table-column
           label="垃圾分类"
-          width="200">
+          width="150">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.classification }}</span>
           </template>
@@ -89,7 +89,7 @@
           </template>
         </el-table-column>
         <el-table-column label="操作"
-                         width="300">
+                         width="150">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -140,7 +140,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes="[15, 30, 50, 100]"
+          :page-sizes="[10, 30, 50, 100]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total=totalPage>
@@ -246,7 +246,7 @@
                     garbageName: this.garbageQueryForm.garbageName,
                     classification: this.garbageQueryForm.classification,
                     disposalMethod: this.garbageQueryForm.disposalMethod,
-                    pageNum: 1,
+                    pageNum: this.currentPage,
                     pageSize: this.pageSize
                 }
                 getGarbages(queryForm).then(response => {
@@ -296,25 +296,13 @@
                 })
 
             },
-            fetchData() {
-                this.listLoading = true
-                const queryForm = {
-                    garbageName: "",
-                    classification: "",
-                    disposalMethod: "",
-                    pageNum: this.currentPage,
-                    pageSize: this.pageSize
-                }
-                getGarbages(queryForm).then(response => {
-                    this.list = response.data.list
-                    this.listLoading = false
-                })
+            handleSizeChange(val) {
+                this.pageSize = val
+                this.onSubmitQueryGarbage();
             },
-            handleSizeChange() {
-
-            },
-            handleCurrentChange() {
-
+            handleCurrentChange(val) {
+                this.currentPage = val
+                this.onSubmitQueryGarbage();
             }
         }
     }

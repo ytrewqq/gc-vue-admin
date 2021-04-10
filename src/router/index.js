@@ -109,6 +109,36 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/orderms',
+    component: Layout,
+    redirect: '/orderms/order',
+    name: 'orderms',
+    meta: { title: '订单管理', icon: 'el-icon-order' },
+    children: [
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/order/index'),
+        meta: { title: '订单管理', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/commentms',
+    component: Layout,
+    redirect: '/commentms/comment',
+    name: 'commentms',
+    meta: { title: '评论管理', icon: 'el-icon-order' },
+    children: [
+      {
+        path: '/comment',
+        name: 'comment',
+        component: () => import('@/views/comment/index'),
+        meta: { title: '评论列表', icon: 'table' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

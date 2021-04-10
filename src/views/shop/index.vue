@@ -139,7 +139,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes="[15, 30, 50, 100]"
+          :page-sizes="[10, 30, 50, 100]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total=totalPage>
@@ -303,11 +303,13 @@
                     this.listLoading = false
                 })
             },
-            handleSizeChange() {
-
+            handleSizeChange(val) {
+                this.pageSize = val
+                this.onSubmitQueryGarbage();
             },
-            handleCurrentChange() {
-
+            handleCurrentChange(val) {
+                this.currentPage = val
+                this.onSubmitQueryGarbage();
             }
         }
     }

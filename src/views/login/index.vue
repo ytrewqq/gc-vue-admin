@@ -125,7 +125,6 @@ export default {
       })
     },
     handleRegister(){
-        console.log(this.redirect)
         this.$router.push('/register')
     }
   }

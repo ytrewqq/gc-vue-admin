@@ -24,9 +24,13 @@
               <el-form-item label="分类编号" class="dialog-form-item">
                 <el-input class="dialog-input" v-model="calssificationAddForm.classificationCode"></el-input>
               </el-form-item>
-              <el-form-item label="分类编号" class="dialog-form-item">
-                <el-input rows="3" class="dialog-input" type="textarea" placeholder="请输入内容" :rows="2"
+              <el-form-item label="分类描述" class="dialog-form-item">
+                <el-input rows="3" class="dialog-input" type="textarea" placeholder="请输入内容" :rows="5"
                           v-model="calssificationAddForm.classificationDesc"></el-input>
+              </el-form-item>
+              <el-form-item label="投放规则" class="dialog-form-item">
+                <el-input rows="3" class="dialog-input" type="textarea" placeholder="请输入内容" :rows="5"
+                          v-model="calssificationAddForm.disposalDesc"></el-input>
               </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -46,27 +50,34 @@
         align="center">
         <el-table-column
           label="编码"
-          width="350">
+          width="150">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.classificationCode }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="类别"
-          width="400">
+          width="150">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.classification }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="分类描述"
-          width="600">
+          width="500">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.classificationDesc }}</span>
           </template>
         </el-table-column>
+        <el-table-column
+          label="投放规则"
+          width="500">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.disposalDesc }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作"
-                         width="300">
+                         width="200">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -85,9 +96,13 @@
                 <el-form-item label="分类编号" class="edit-form-item">
                   <el-input class="dialog-input" v-model="scope.row.classificationCode"></el-input>
                 </el-form-item>
-                <el-form-item label="分类编号" class="edit-form-item">
+                <el-form-item label="分类描述" class="edit-form-item">
                   <el-input rows=3 class="dialog-input" type="textarea" placeholder="请输入内容" :rows="2"
                             v-model="scope.row.classificationDesc"></el-input>
+                </el-form-item>
+                <el-form-item label="投放规则" class="edit-form-item">
+                  <el-input rows=3 class="dialog-input" type="textarea" placeholder="请输入内容" :rows="2"
+                            v-model="scope.row.disposalDesc"></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
@@ -110,7 +125,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes="[15, 30, 50, 100]"
+          :page-sizes="[10, 30, 50, 100]"
           :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total=totalPage>
@@ -145,7 +160,8 @@
                 calssificationAddForm: {
                     classification: "",
                     classificationCode: "",
-                    classificationDesc: ""
+                    classificationDesc: "",
+                    disposalDesc:""
                 },
                 listLoading: true,
                 totalPage: 0,
@@ -187,7 +203,8 @@
                   id: row.id,
                   classification: row.classification,
                   classificationCode: row.classificationCode,
-                  classificationDesc: row.classificationDesc
+                  classificationDesc: row.classificationDesc,
+                  disposalDesc: row.disposalDesc
               }
               updateCalssification(editForm).then(response => {
                   if (response.code === '000000') {
@@ -261,24 +278,13 @@
                 })
 
             },
-            fetchData() {
-                this.listLoading = true
-                const queryForm = {
-                    classification: "",
-                    classificationCode: "",
-                    pageNum: this.currentPage,
-                    pageSize: this.pageSize
-                }
-                getClassificatios(queryForm).then(response => {
-                    this.list = response.data.list
-                    this.listLoading = false
-                })
+            handleSizeChange(val) {
+                this.pageSize = val
+                this.onSubmitQueryGarbage();
             },
-            handleSizeChange() {
-
-            },
-            handleCurrentChange() {
-
+            handleCurrentChange(val) {
+                this.currentPage = val
+                this.onSubmitQueryGarbage();
             }
         }
     }
